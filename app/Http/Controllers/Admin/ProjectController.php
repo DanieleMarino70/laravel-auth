@@ -37,7 +37,22 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:100',
+            'description' => 'required|',
+            'author' => 'required|string|max:100'
+        ], [
+            '*.required' => 'il :attribute è obbligatorio'
+        ]);
+
+        $data = $request->all();
+
+        $project = new Project;
+        $project->title = $data['title'];
+        $project->description = $data['description'];
+        $project->author = $data['author'];
+        $project->save();
+        return redirect()->route('projects.show', compact('project'));
     }
 
     /**
