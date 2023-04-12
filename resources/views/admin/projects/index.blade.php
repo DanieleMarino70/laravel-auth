@@ -25,7 +25,10 @@
                             <td>{{ $project->title}}</td>
                             <td>{{ $project->description}}</td>
                             <td>{{ $project->author}}</td>
-                            <td><a href="{{route('projects.show', $project)}}"><i class="bi bi-eye"></i></a></td>
+                            <td>
+                                <a href="{{route('projects.show', $project)}}"><i class="bi bi-eye ps-1 pe-1"></i></a>
+                                <a href="{{ route('projects.edit', $project) }}"><i class="bi bi-pen text-warning ps-1 pe-1"></i></a>
+                            </td>
                         </tr>
 
                         @empty

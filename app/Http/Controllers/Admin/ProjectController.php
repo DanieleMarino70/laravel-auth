@@ -74,7 +74,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -86,7 +86,21 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:100',
+            'description' => 'required|',
+            'author' => 'required|string|max:100'
+        ], [
+            '*.required' => 'il :attribute è obbligatorio'
+        ]);
+
+        $data = $request->all();
+        $project->title = $data['title'];
+        $project->description = $data['description'];
+        $project->author = $data['author'];
+        $project->save();
+
+        return redirect()->route('projects.show', $project);
     }
 
     /**

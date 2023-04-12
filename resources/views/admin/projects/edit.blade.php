@@ -14,25 +14,26 @@
         </div>
         @endif --}}
 
-        <form action="{{ route('projects.store') }}" method="POST">
+        <form action="{{ route('projects.update', $project) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="mb-3">
                 <label for="title" class="form-label">Titolo</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Titolo" value="{{old('title')}}">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Titolo" value="{{$project->title}}">
             </div>
 
             
             <div class="mb-3">
                 <label for="author" class="form-label">Autore</label>
-                <input type="text" class="form-control" id="author" name="author" placeholder="Nome Autore" value="{{old('author')}}">
+                <input type="text" class="form-control" id="author" name="author" placeholder="Nome Autore" value="{{$project->author}}">
             </div>
             
             <div class="mb-3">
                 <label for="album" class="form-label">Descrizione</label>
-                <textarea type="text" class="form-control" id="description" name="description" placeholder="Descrizione">{{old('description')}}</textarea>
+                <textarea type="text" class="form-control" id="description" name="description" placeholder="Descrizione">{{$project->description}}</textarea>
             </div>
 
-            <button class="btn btn-secondary">Aggiungi</button>
+            <button class="btn btn-secondary">Salva Modifica</button>
         </form>
 
 
