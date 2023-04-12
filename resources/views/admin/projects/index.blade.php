@@ -26,11 +26,14 @@
                             <td>{{ $project->description}}</td>
                             <td>{{ $project->author}}</td>
                             <td>
-                                <a href="{{route('projects.show', $project)}}"><i class="bi bi-eye ps-1 pe-1"></i></a>
-                                <a href="{{ route('projects.edit', $project) }}"><i class="bi bi-pen text-warning ps-1 pe-1"></i></a>
+                                <div class="d-flex flex-column">
+                                    <a href="{{route('projects.show', $project)}}"><i class="bi bi-eye ps-1 pe-1"></i></a>
+                                    <a href="{{ route('projects.edit', $project) }}"><i class="bi bi-pen text-warning ps-1 pe-1"></i></a>
+                                    <a type="button"  data-bs-toggle="modal" data-bs-target="#project-card-modal-{{$project->id}}"><i class="bi bi-trash text-danger"></i></a>
+                                </div>
                             </td>
                         </tr>
-
+                        @include('partials._deletemodal')
                         @empty
                         <h2>Non ci sono Progetti</h2>
                         @endforelse
