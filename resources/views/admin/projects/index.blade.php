@@ -15,6 +15,7 @@
                         <th scope="col">TITOLO</th>
                         <th scope="col">DESCRIZIONE</th>
                         <th scope="col">AUTORE</th>
+                        <th scope="col">AZIONI</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -24,6 +25,7 @@
                             <td>{{ $project->title}}</td>
                             <td>{{ $project->description}}</td>
                             <td>{{ $project->author}}</td>
+                            <td><a href="{{route('projects.show', $project)}}"><i class="bi bi-eye"></i></a></td>
                         </tr>
 
                         @empty
