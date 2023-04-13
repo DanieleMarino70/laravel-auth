@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container mt-5">
-        {{-- @if($errors->any())
+        @if($errors->any())
         <div class="alert alert-danger" role="alert">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -12,9 +12,9 @@
                 @endforeach
             </ul>
         </div>
-        @endif --}}
+        @endif
 
-        <form action="{{ route('projects.update', $project) }}" method="POST">
+        <form action="{{ route('projects.update', $project) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">

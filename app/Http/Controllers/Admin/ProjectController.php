@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -40,17 +42,30 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|string|max:100',
             'description' => 'required|',
-            'author' => 'required|string|max:100'
+            'author' => 'required|string|max:100',
+            'cover_image' => 'nullable|image|mimes:jpg,png,jpeg'
         ], [
-            '*.required' => 'il :attribute è obbligatorio'
+            'title.required' => 'il titolo è obbligatorio',
+            'title.max' => 'il titolo deve essere massimo di 100 caratteri',
+            'description.required' => 'la descrizione è obbligatoria',
+            'author.required' => 'l\'autore è obbligatorio',
+            'author.max' => 'il nome dell\'autore deve essere massimo di 100 caratteri',
+            'cover_image.image' => 'il file deve essere un\'immagine',
+            'cover_image.mimes' => 'il file deve essere di tipo jpeg, jpg, png.',
+
         ]);
 
         $data = $request->all();
+
+        if (Arr::exists($data, 'cover_image')) {
+            $img_path = Storage::put('uploads/projects', $data['cover_image']);
+        }
 
         $project = new Project;
         $project->title = $data['title'];
         $project->description = $data['description'];
         $project->author = $data['author'];
+        $project->cover_image = $img_path;
         $project->save();
         return redirect()->route('projects.show', compact('project'));
     }
@@ -89,9 +104,17 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|string|max:100',
             'description' => 'required|',
-            'author' => 'required|string|max:100'
+            'author' => 'required|string|max:100',
+            'cover_image' => 'nullable|image|mimes:jpg,png,jpeg'
         ], [
-            '*.required' => 'il :attribute è obbligatorio'
+            'title.required' => 'il titolo è obbligatorio',
+            'title.max' => 'il titolo deve essere massimo di 100 caratteri',
+            'description.required' => 'la descrizione è obbligatoria',
+            'author.required' => 'l\'autore è obbligatorio',
+            'author.max' => 'il nome dell\'autore deve essere massimo di 100 caratteri',
+            'cover_image.image' => 'il file deve essere un\'immagine',
+            'cover_image.mimes' => 'il file deve essere di tipo jpeg, jpg, png.',
+
         ]);
 
         $data = $request->all();
